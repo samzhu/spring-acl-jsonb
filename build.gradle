@@ -1,0 +1,71 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.0.0-M3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'io.github.samzhu'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-resource-server'
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+	implementation 'org.postgresql:postgresql'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:postgresql'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+
+	// 顯示測試結果
+	testLogging {
+		events "passed", "skipped", "failed"
+		exceptionFormat "full"
+		showStandardStreams = false
+		showCauses = true
+		showStackTraces = true
+
+		// 顯示測試摘要
+		afterSuite { desc, result ->
+			if (!desc.parent) {
+				println "\n📊 測試結果: ${result.resultType}"
+				println "   ✅ 通過: ${result.successfulTestCount}"
+				println "   ❌ 失敗: ${result.failedTestCount}"
+				println "   ⏭️  略過: ${result.skippedTestCount}"
+				println "   📈 總計: ${result.testCount}"
+				println "   ⏱️  耗時: ${(result.endTime - result.startTime) / 1000}s\n"
+			}
+		}
+	}
+}
