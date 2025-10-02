@@ -501,7 +501,7 @@ public class DocumentService {
 
 ```bash
 # 執行所有測試
-./gradlew test
+./gradlew clean test --rerun
 
 # 查看測試報告
 open build/reports/tests/test/index.html
