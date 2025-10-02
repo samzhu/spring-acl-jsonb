@@ -1,7 +1,10 @@
 package io.github.samzhu.acl;
 
-import io.github.samzhu.acl.controller.ProjectController;
-import io.github.samzhu.acl.entity.Project;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +14,10 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
+// import org.springframework.test.web.servlet.client.RestTestClient;
 
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import io.github.samzhu.acl.controller.ProjectController;
+import io.github.samzhu.acl.entity.Project;
 
 /**
  * ACL 示範專案 HTTP 介面測試
@@ -43,6 +45,8 @@ class AclApplicationTests {
 
     @Autowired
     private WebTestClient webTestClient;
+//     @Autowired
+//     private RestTestClient restTestClient;
 
     // ===== Create Tests =====
 

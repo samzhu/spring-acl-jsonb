@@ -624,6 +624,25 @@ USING GIN (acl_entries jsonb_path_ops);
 
 參考：[Spring Boot 4.0 Migration Guide](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide)
 
+#### ⚠️ 已知問題：WebTestClient vs RestTestClient
+
+**問題描述：**
+- 本專案使用 **WebTestClient** 進行測試（需要 `spring-boot-starter-webflux` 依賴）
+- 雖然專案使用 Spring MVC（非響應式），但為了測試而引入了 WebFlux 依賴
+- Spring Framework 7.0.0-M8 已推出 **RestTestClient**（專為非響應式應用設計）
+- **但 Spring Boot 4.0.0-M3 尚未自動配置 RestTestClient**
+
+**RestTestClient 資訊：**
+- Package: `org.springframework.test.web.servlet.client.RestTestClient`
+- 已在 Spring Framework 7.0.0-M8+ 可用（[PR #34428](https://github.com/spring-projects/spring-framework/pull/34428)）
+- 文件：[RestTestClient Documentation](https://docs.spring.io/spring-framework/reference/7.0/testing/resttestclient.html)
+- Spring Boot 支援追蹤：[Issue #47335](https://github.com/spring-projects/spring-boot/issues/47335)
+
+**後續跟進：**
+- [ ] 追蹤 Spring Boot 4.0.0-RC1 或正式版是否支援 RestTestClient 自動配置
+- [ ] 若支援，遷移測試程式碼從 WebTestClient 到 RestTestClient
+- [ ] 移除 `spring-boot-starter-webflux` 依賴（目前必須保留）
+
 ### Q3: 正式環境部署注意事項
 
 **A:** 生產環境檢查清單：
