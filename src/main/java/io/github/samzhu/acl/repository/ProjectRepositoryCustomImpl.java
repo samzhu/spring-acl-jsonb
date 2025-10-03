@@ -27,7 +27,7 @@ import java.util.List;
  *
  * **為什麼使用 NamedParameterJdbcTemplate 而不是 Criteria API？**
  *
- * 經過測試和調研，發現以下限制：
+ * 經過研究和測試，發現以下限制：
  * 1. Spring Data JDBC Criteria API 不支援 PostgreSQL JSONB 運算符（?|, ?&, @>）
  * 2. JdbcAggregateTemplate 無法處理複雜的動態 WHERE 條件
  * 3. 官方建議：複雜查詢使用 JdbcTemplate 或 NamedParameterJdbcTemplate
